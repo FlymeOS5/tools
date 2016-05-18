@@ -7,21 +7,21 @@
 # The default value is base.
 # Support values: base, base_cm, base_mt6592 and other devices in the future.
 #-----------------------------------------------------------------------------
-#BASE := base_cm
+BASE := base_cm
 
 ##############################################################################
 # The value is used for resource adapter with the aapt tool.
 # It depends on the device's resolution.
 # The default value is hdpi.
 #-----------------------------------------------------------------------------
-DENSITY := xhdpi
+DENSITY := xxhdpi
 
 ##############################################################################
 # The value is used to config the bootanimation.
 # It depends on the device's resolution, such as 480x854, 540x960, 720x1280, 1080x1920.
 # The default value is nothing.
 #-----------------------------------------------------------------------------
-RESOLUTION :=
+RESOLUTION := 1080x1920
 
 ##############################################################################
 # The value decides whether use prebuilt image or pack from the BOOT or RECOVERY directory in the vendor directory.
@@ -54,9 +54,10 @@ vendor_modify_images := boot
 # The default value is Bluetooth.
 # You can configure the apk name in the vendor/system/app or vendor/system/pri-app directory.
 #-----------------------------------------------------------------------------
-vendor_saved_apps := Bluetooth KeyChain HTMLViewer UserDictionaryProvider BackupRestoreConfirmation \
-                     FusedLocation PrintSpooler SharedStorageBackup  ExternalStorageProvider InputDevices \
-                     ProxyHandler Shell DefaultContainerService
+vendor_saved_apps := AntHalService  Bluetooth BluetoothExt BackupRestoreConfirmation Camera2 \
+ExternalStorageProvider FusedLocation HTMLViewer InputDevices KeyChain NfcNci ProxyHandler \
+qcrilmsgtunnel QuickBoot shutdownlistener TimeService SharedStorageBackup Shell Stk Tag \
+UserDictionaryProvider WAPPushManager
 
 ##############################################################################
 # The value decides which vendor apk you want to modify.
@@ -74,7 +75,7 @@ vendor_saved_apps := Bluetooth KeyChain HTMLViewer UserDictionaryProvider Backup
 # You need to decode android.policy.jar to the project directory (use apktool d android.policy.jar) first,
 # and then you can make it by:   make android.policy
 #-----------------------------------------------------------------------------
-vendor_modify_jars := android.policy framework services telephony-common wifi-service
+vendor_modify_jars := android.policy framework services telephony-common org.cyanogenmod.platform
 
 ##############################################################################
 # The value decides which board system directory you want to save.
@@ -89,7 +90,7 @@ vendor_modify_jars := android.policy framework services telephony-common wifi-se
 # You can configure the board system file path which relative to the system directory in the board release.
 # You should add "lib64/libwebviewchromium.so" for 64 bit system.
 #-----------------------------------------------------------------------------
-board_saved_files := lib/libwebviewchromium.so
+board_saved_files := lib/libwebviewchromium.so bin/bootanimation media/bootanimation.zip bin/shutdownanimation
 
 ##############################################################################
 # The value decides which board system apk you want to remove.
@@ -108,7 +109,7 @@ board_saved_files := lib/libwebviewchromium.so
 # The command idtoname how to use: first use "apktool d source/system/framework/framework-res.apk other/TMP/framework-res",
 # and then use "idtoname other/TMP/framework-res/res/values/public_master.xml XXXX/smali"(XXXX is the directory where you decode board system apk).
 #-----------------------------------------------------------------------------
-#board_modify_apps := TeleService
+board_modify_apps := TeleService SystemUI
 
 ##############################################################################
 # The value decides which jar you want to modify, when the jar is based on the board framework jar.
@@ -141,8 +142,11 @@ board_saved_files := lib/libwebviewchromium.so
 # The default value is Nexus-5_Unofficial.
 # You should configure the property according to your device and your ID with replace the "Nexus-5_Unofficial".
 override_property += \
-    ro.flyme.romer=Unofficial \
-    ro.product.model_romer=Nexus-5_Unofficial
+    ro.flyme.romer=nian0114 \
+    ro.product.model_romer=port_nian0114 \
+    ro.ota.romname=Flyme OS \
+    ro.ota.manifest= \
+    ro.ota.version=
 
 ##############################################################################
 # The value decides which property you will remove from the build.prop.
