@@ -42,6 +42,8 @@ vendor_modify_jars=""
 vendor_saved_apps=""
 
 FROM_RECOVERY=0
+
+USER=`whoami`
 ######## Error Exit Num ##########
 ERR_USB_NOT_CONNECTED=151
 ERR_DEVICE_NOT_ROOTED=152
@@ -173,7 +175,7 @@ function checkDATPackage()
 	unzip -q $ROM_PACKAGE -d $OUT_OTA_DIR
 	python $DAT_PACKING_TOOL $OUT_OTA_DIR/system.transfer.list $OUT_OTA_DIR/system.new.dat system.img &> /dev/null
         sudo mount -t ext4 -o loop system.img tmp/
-	sudo chown -R nian:nian tmp
+	sudo chown -R $USER:$USER tmp
 	mkdir -p $OUT_SYSTEM
         cp -rf tmp/* $OUT_SYSTEM
 	if [ -f $OUT_OTA_DIR/boot.img ];then
